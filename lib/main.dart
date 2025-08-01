@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nativechat/models/chat_session.dart';
 import 'package:nativechat/models/settings.dart';
+import 'package:nativechat/models/llm_provider.dart';
+import 'package:nativechat/services/llm_manager.dart';
 import 'package:theme_provider/theme_provider.dart';
 // import 'package:flutter/services.dart';
 
@@ -10,8 +12,16 @@ import 'pages/homepage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  
+  // Register adapters
   Hive.registerAdapter(SettingsAdapter());
   Hive.registerAdapter(ChatSessionModelAdapter());
+  Hive.registerAdapter(LLMProviderTypeAdapter());
+  Hive.registerAdapter(LLMProviderAdapter());
+  
+  // Initialize LLM Manager
+  await LLMManager.instance.initialize();
+  
   runApp(const MyApp());
 }
 
