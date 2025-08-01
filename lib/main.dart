@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             initialRoute: "/",
             routes: {
-              "/": (context) => Homepage(session: session),
+              "/": (context) => EnhancedHomepage(session: session),
             },
           ),
         ),
