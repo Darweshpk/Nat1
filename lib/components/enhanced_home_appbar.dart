@@ -161,9 +161,11 @@ class _EnhancedHomeAppbarState extends State<EnhancedHomeAppbar> {
                 widget.clearConversation();
                 break;
               case 'compare_mode':
-                // TODO: Implement comparison mode
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Comparison mode coming soon!')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ModelComparisonSetup(),
+                  ),
                 );
                 break;
             }
