@@ -4,6 +4,7 @@ import 'package:nativechat/components/input_box/input_mic_button.dart';
 import 'package:nativechat/components/input_box/main_text_field.dart';
 import 'package:nativechat/components/input_box/send_input_button.dart';
 import 'package:nativechat/components/input_box/voice_mode_button.dart';
+import 'package:nativechat/components/image_generation_dialog.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:nativechat/components/attach_file_popup_menu/attach_file_popup_menu.dart';
 import 'package:theme_provider/theme_provider.dart';
