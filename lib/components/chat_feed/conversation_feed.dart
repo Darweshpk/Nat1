@@ -34,15 +34,31 @@ class _ConversationFeedState extends State<ConversationFeed> {
       builder: (context, value, child) {
         return Expanded(
           flex: 2,
-          child: ListView.builder(
-            padding: const EdgeInsets.only(bottom: 200.0),
-            controller: widget.scrollController,
-            itemCount: widget.chatHistory.length,
-            itemBuilder: (context, index) {
-              final chat = widget.chatHistory[index];
-              final bool isUser = chat['from'] == "user";
-              final bool isSystem = chat['from'] == "system";
-              final bool isLast = index == widget.chatHistory.length - 1;
+          child: AnimationLimiter(
+            child: ListView.builder(
+              padding: const EdgeInsets.only(bottom: 200.0),
+              controller: widget.scrollController,
+              itemCount: widget.chatHistory.length,
+              itemBuilder: (context, index) {
+                final chat = widget.chatHistory[index];
+                final bool isUser = chat['from'] == "user";
+                final bool isSystem = chat['from'] == "system";
+                final bool isLast = index == widget.chatHistory.length - 1;
+
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: Duration(milliseconds: 375),
+                  child: SlideAnimation(
+                    verticalOffset: 50.0,
+                    child: FadeInAnimation(
+                      child: _buildChatItem(chat, isUser, isSystem, isLast, value),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
 
               // Handle file attachments
               if (chat.containsKey('file') && chat['file'] != null) {
