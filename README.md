@@ -98,6 +98,82 @@ NativeChat is a cutting-edge AI-powered mobile assistant that provides context-a
 - toggleVoiceMode(): Enable/disable voice features
 ```
 
+## 📱 APK Build & Installation
+
+### ⚡ **Quick Build with GitHub Actions (Recommended)**
+1. Push your code to GitHub repository
+2. Go to **Actions** tab → **Flutter APK Build** workflow
+3. Click **Run workflow** → Wait 5-10 minutes
+4. Download APK from **Artifacts** section:
+   - **debug-apk** (50-80 MB) - For testing
+   - **release-apk** (30-50 MB) - For distribution
+   - **release-aab** (25-40 MB) - For Google Play Store
+
+### 🔧 **Manual Build**
+```bash
+flutter clean
+flutter pub get
+flutter build apk --release  # Production APK
+flutter build appbundle --release  # For Play Store
+```
+
+## 🔐 Required Permissions
+
+### **Device Access**
+- **SMS**: Read and analyze text messages
+- **Call Logs**: Access call history
+- **Phone State**: Device information
+- **Storage**: File attachments and downloads
+
+### **Audio & Voice**
+- **Microphone**: Voice recognition and recording
+- **Bluetooth**: Audio device connectivity
+
+### **Location & Network**
+- **Location Services**: GPS coordinates and address
+- **Network State**: Connection status and WiFi details
+- **Internet**: AI provider APIs and web content
+
+## 🚀 Getting Started
+
+1. **Install APK** on your Android device (API 21+)
+2. **Grant Permissions** when prompted
+3. **Choose AI Provider**:
+   - **Free Options**: Groq, Hugging Face, Together AI
+   - **Premium**: Add API keys for Gemini, OpenAI, Claude
+4. **Start Chatting** - Voice or text mode available
+
+## 💡 Usage Examples
+
+### 📊 **Device Analysis**
+- *"What are my phone specs?"*
+- *"Show me my battery status"*
+- *"List all installed apps"*
+
+### 📞 **Communication Insights**
+- *"Summarize my recent calls"*
+- *"What's in my latest messages?"*
+- *"Who called me most this week?"*
+
+### 🌐 **Live Information**
+- *"Get me latest tech news"*
+- *"Show me trending posts from r/programming"*
+- *"What's my current location?"*
+
+### 🎤 **Voice Interaction**
+- Enable voice mode and speak naturally
+- AI responds with voice synthesis
+- Continuous hands-free conversation
+
+## 🛠️ Technical Specifications
+
+- **Framework**: Flutter 3.24.5+
+- **Platform**: Android (API 21+)
+- **Architecture**: Clean Architecture with Riverpod state management
+- **Database**: Hive (local storage)
+- **AI Integration**: Multi-provider support with streaming responses
+- **Voice**: Speech-to-text and text-to-speech capabilities
+
 ## Illustrations
 
 ![](./assets/promos/NativeChat2.jpg)
