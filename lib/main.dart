@@ -7,7 +7,7 @@ import 'package:nativechat/services/llm_manager.dart';
 import 'package:theme_provider/theme_provider.dart';
 // import 'package:flutter/services.dart';
 
-import 'pages/homepage.dart';
+import 'pages/enhanced_homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
