@@ -1,33 +1,102 @@
 ![](./assets/banners/banner.jpg)
 ![](./assets/promos/NativeChat1.png)
 
-# NativeChat
+# 🤖 NativeChat - Advanced AI Assistant
 
-NativeChat is a powerful application designed to bring seamless, context-aware interactions to your mobile device. Using Gemini under the hood, it offers a wide range of features to assist with tasks like fetching system specs, analyzing call logs, summarizing SMS messages, and providing insights into your device’s status. NativeChat makes your chat experience better by providing real-time data and personalized responses.
+**Version 1.8.0** | **Production Ready** ✅
 
-## Features
+NativeChat is a cutting-edge AI-powered mobile assistant that provides context-aware interactions directly on your Android device. Built with Flutter and supporting multiple AI providers, it offers real-time device integration, multimodal capabilities, and advanced conversational AI features.
 
--   **Gemini-Powered Responses**: Leveraging the Gemini model, NativeChat generates insightful replies based on your device’s context and queries.
--   **Voice Mode**: Interact with NativeChat using your voice. It listens to your queries and responds with voice for a hands-free experience.
--   **System & Device Info**: Quickly access detailed information like device specs, battery status, installed apps, and more.
--   **Real-Time Assistance**: Retrieve and analyze your call logs, SMS messages, and system queries instantly.
--   **Versatile Coding Assistant**: Generate and debug code in various languages like Python, JavaScript, and Zig.
+## 🚀 Key Features
 
-## Function Declarations
+### 🧠 **Multi-AI Provider Support**
+- **Gemini 2.0 Flash** - Google's latest multimodal AI (Primary)
+- **OpenAI GPT-4o/4o-mini** - Advanced conversational AI
+- **Claude 4 Sonnet & 3.5 Sonnet** - Anthropic's capable models
+- **Groq (FREE)** - Ultra-fast Llama 3 70B & Mixtral 8x7B
+- **Hugging Face (FREE)** - CodeLlama 34B & Mistral 7B
+- **OpenRouter** - Access to multiple premium models
+- **Together AI (FREE)** - Llama 2 70B with free tier
+- **Replicate** - Various open-source models
 
--   **Time** (getDeviceTime): Fetches the current date, time, and timezone of the device.
+### 🎤 **Voice & Audio Features**
+- **Voice Mode**: Complete hands-free interaction with speech-to-text and text-to-speech
+- **Audio File Processing**: Upload and analyze MP3/M4A audio files
+- **Real-time Voice Recognition**: Continuous listening and response
 
--   **Specs** (getDeviceSpecs): Retrieves system specifications and hardware details of the device.
+### 📱 **Device Integration & Context Awareness**
+- **System Specifications**: CPU, RAM, storage, OS details
+- **Call Log Analysis**: Incoming, outgoing, missed calls with statistics
+- **SMS Processing**: Read, analyze, and summarize text messages
+- **Battery Monitoring**: Real-time battery level and charging status
+- **Installed Apps**: Complete app inventory with versions and install dates
+- **Network Information**: WiFi details, IP addresses, connection status
+- **Location Services**: GPS coordinates and address resolution
 
--   **Call Logs** (getCallLogs): Retrieves a list of call history with details about each call (incoming, outgoing, missed).
+### 🌐 **Internet & API Integration**
+- **Reddit Integration**: Live content from 100+ subreddits
+- **News Aggregation**: Automatic news fetching from multiple sources
+- **Web Content Processing**: URL analysis and content extraction
 
--   **SMS** (getSMS): Retrieves a list of text messages, including sender, content, date, and read status.
+### 🖼️ **Multimodal Capabilities**
+- **Image Processing**: Upload photos from gallery or capture with camera
+- **File Attachments**: Support for documents, PDFs, text files
+- **Visual Analysis**: AI-powered image understanding and analysis
+- **Document Processing**: Read and analyze various file formats
 
--   **Battery** (getDeviceBattery): Provides the current battery level as a percentage and its charging state.
+### 🧠 **Memory & Personalization**
+- **AI Memory System**: Remember user preferences and past conversations
+- **Chat History**: Persistent conversation storage
+- **Context Retention**: Maintain conversation context across sessions
+- **Personalized Responses**: Adaptive communication based on user patterns
 
--   **Apps** (getDeviceApps): Returns a list of installed apps and their details such as name, package, and version.
+### 🎨 **User Interface & Experience**
+- **Dark/Light Themes**: Automatic theme switching with AI commands
+- **Chat Modes**: One-sided or bubble chat layouts
+- **File Sharing Integration**: Receive shared content from other apps
+- **Animated UI**: Smooth transitions and loading animations
+- **Code Highlighting**: Syntax highlighting for multiple programming languages
 
--   **Clear Conversation** (clearConversation): Clears the current conversation history.
+## 🔧 Advanced AI Functions
+
+### 📊 **Device Analytics**
+```dart
+- getDeviceTime(): Current date, time, timezone
+- getDeviceSpecs(): CPU, RAM, storage, OS details
+- getDeviceNetworkInfo(): WiFi, IP, connection details
+- getDeviceBattery(): Battery level and charging state
+- getDeviceApps(): Complete installed apps list
+```
+
+### 📞 **Communication Analysis**
+```dart
+- getCallLogs(): Call history with statistics
+- getSMS(): Text message analysis and summaries
+- getCurrentLocation(): GPS coordinates and address
+```
+
+### 🌐 **Content & Web Integration**
+```dart
+- getReddit(subreddit, time, listing): Live Reddit content
+- Web content processing and analysis
+- Real-time news aggregation
+```
+
+### 🧠 **Memory Management**
+```dart
+- saveMemory(content): Store user information
+- getMemories(): Retrieve saved memories
+- forgetMemories(): Clear memory bank
+- forgetOneMemory(specific): Delete specific memory
+```
+
+### 🎮 **App Control Functions**
+```dart
+- clearConversation(): Reset chat history
+- toggleDarkMode(mode): Switch themes
+- toggleOneSidedChatMode(): Change chat layout
+- toggleVoiceMode(): Enable/disable voice features
+```
 
 ## Illustrations
 
