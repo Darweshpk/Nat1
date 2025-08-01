@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:nativechat/components/api_keys_manager.dart';
 import 'package:nativechat/components/llm_provider_selector.dart';
 import 'package:nativechat/components/model_comparison_setup.dart';
+import 'package:nativechat/components/image_generation_dialog.dart';
 import 'package:nativechat/models/llm_provider.dart';
 import 'package:theme_provider/theme_provider.dart';
 
