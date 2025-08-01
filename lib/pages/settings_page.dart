@@ -112,6 +112,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = ThemeProvider.themeOf(context).id == "dark_theme";
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -122,18 +124,257 @@ class _SettingsPageState extends State<SettingsPage> {
           vertical: 10.0,
         ),
         children: [
-          Row(
-            spacing: 10.0,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [DarkModeToggleButton(), OneSidedChatToggleButton()],
+          // AI Model Selection Section
+          Card(
+            margin: EdgeInsets.only(bottom: 16),
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.smart_toy, color: Colors.blue),
+                      SizedBox(width: 8),
+                      Text(
+                        'AI Model',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  if (currentProvider != null) ...[
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: isDark ? Color(0xff1a1a1a) : Colors.grey[100],
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currentProvider!.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              if (currentProvider!.isFree)
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    'FREE',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            currentProvider!.model,
+                            style: TextStyle(
+                              color: isDark ? Colors.grey[400] : Colors.grey[600],
+                              fontSize: 12,
+                            ),
+                          ),
+                          if (currentProvider!.description != null) ...[
+                            SizedBox(height: 4),
+                            Text(
+                              currentProvider!.description!,
+                              style: TextStyle(
+                                color: isDark ? Colors.grey[500] : Colors.grey[600],
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: _showProviderSelector,
+                            icon: Icon(Icons.swap_horiz),
+                            label: Text('Change Model'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        if (!currentProvider!.isFree)
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () => _showApiKeyDialog(currentProvider!),
+                              icon: Icon(Icons.key),
+                              label: Text('API Key'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: (currentProvider!.apiKey?.isNotEmpty ?? false) 
+                                    ? Colors.green 
+                                    : Colors.orange,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
-          SizedBox(height: 10.0),
-          Row(
-            spacing: 10.0,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MemoriesButtons(),
-            ],
+          
+          // Available Models Summary
+          Card(
+            margin: EdgeInsets.only(bottom: 16),
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.info_outline, color: Colors.blue),
+                      SizedBox(width: 8),
+                      Text(
+                        'Available Models',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      _buildProviderChip('🤖 Gemini', 'Google AI', Colors.blue),
+                      _buildProviderChip('⚡ Groq', 'Ultra Fast & Free', Colors.yellow),
+                      _buildProviderChip('🤗 HuggingFace', 'Open Source & Free', Colors.purple),
+                      _buildProviderChip('🔥 OpenAI', 'GPT-4o/Mini', Colors.green),
+                      _buildProviderChip('🧠 Claude', 'Anthropic', Colors.orange),
+                      _buildProviderChip('🔀 OpenRouter', 'All Models', Colors.red),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          // App Settings
+          Card(
+            margin: EdgeInsets.only(bottom: 16),
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.settings, color: Colors.blue),
+                      SizedBox(width: 8),
+                      Text(
+                        'App Settings',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    spacing: 10.0,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(child: DarkModeToggleButton()), 
+                      Expanded(child: OneSidedChatToggleButton())
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          // Memory Management
+          Card(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.memory, color: Colors.blue),
+                      SizedBox(width: 8),
+                      Text(
+                        'Memory Management',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  MemoriesButtons(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProviderChip(String name, String description, Color color) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              color: color,
+            ),
+          ),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 10,
+              color: color.withOpacity(0.8),
+            ),
           ),
         ],
       ),
