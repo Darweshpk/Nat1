@@ -19,11 +19,95 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   var isOneSidedChatModeNotifier = IsOneSidedChatModeNotifier();
+  LLMProvider? currentProvider;
+  List<LLMProvider> providers = [];
 
   @override
   void initState() {
     super.initState();
     isOneSidedChatModeNotifier.getIsOneSidedMode();
+    _loadLLMInfo();
+  }
+
+  void _loadLLMInfo() async {
+    await LLMManager.instance.initialize();
+    setState(() {
+      currentProvider = LLMManager.instance.currentProvider;
+      providers = LLMManager.instance.providers;
+    });
+  }
+
+  void _showProviderSelector() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => LLMProviderSelector(
+        selectedProvider: currentProvider,
+        onProviderSelected: (provider) async {
+          await LLMManager.instance.setCurrentProvider(provider);
+          _loadLLMInfo();
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Switched to ${provider.name}')),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showApiKeyDialog(LLMProvider provider) {
+    final controller = TextEditingController(text: provider.apiKey ?? '');
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('${provider.name} API Key'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Enter your API key for ${provider.name}:'),
+            SizedBox(height: 16),
+            TextField(
+              controller: controller,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: 'Enter API key...',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            if (provider.isFree) 
+              Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: Text(
+                  'This model is FREE to use!',
+                  style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                ),
+              ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await LLMManager.instance.updateProviderApiKey(
+                provider.id, 
+                controller.text.trim()
+              );
+              _loadLLMInfo();
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('API key updated for ${provider.name}')),
+              );
+            },
+            child: Text('Save'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
