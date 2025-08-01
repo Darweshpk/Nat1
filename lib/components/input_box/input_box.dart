@@ -46,8 +46,21 @@ class InputBox extends StatefulWidget {
 }
 
 class _InputBoxState extends State<InputBox> {
+  void _showImageGenerator() {
+    showDialog(
+      context: context,
+      builder: (context) => ImageGenerationDialog(
+        initialPrompt: widget.userMessageController.text.trim().isNotEmpty 
+            ? widget.userMessageController.text.trim() 
+            : null,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isDark = ThemeProvider.themeOf(context).id == "dark_theme";
+    
     return Container(
       padding: const EdgeInsets.only(
         left: 10.0,
@@ -60,9 +73,14 @@ class _InputBoxState extends State<InputBox> {
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
         ),
-        color: ThemeProvider.themeOf(context).id == "light_theme"
-            ? const Color(0xfff2f2f2)
-            : const Color(0xff1a1a1a),
+        color: isDark ? Color(0xff1a1a1a) : Color(0xfff2f2f2),
+        boxShadow: [
+          BoxShadow(
+            color: isDark ? Colors.black.withOpacity(0.3) : Colors.grey.withOpacity(0.2),
+            blurRadius: 10,
+            offset: Offset(0, -2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,30 +92,51 @@ class _InputBoxState extends State<InputBox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Attach File Menu and Voice Mode
-              Padding(
-                padding: const EdgeInsets.only(left: 4.0),
-                child: Row(
-                  spacing: 10.0,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    // Attach Files
-                    AttachFilePopupMenu(
-                      onPickFile: widget.onPickFile,
-                      onPickImage: widget.onPickImage,
-                      onPickAudio: widget.onPickAudio,
-                      onPickCamera: widget.onPickCamera,
-                    ),
-                    // Voice Mode
-                    VoiceModeButton(
-                      toggleVoiceMode: widget.toggleVoiceMode,
-                      isInVoiceMode: widget.isInVoiceMode,
-                    ),
-                  ],
+              // Left side buttons
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      // Attach Files
+                      AttachFilePopupMenu(
+                        onPickFile: widget.onPickFile,
+                        onPickImage: widget.onPickImage,
+                        onPickAudio: widget.onPickAudio,
+                        onPickCamera: widget.onPickCamera,
+                      ),
+                      SizedBox(width: 8),
+                      // Image Generation
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.purple.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: IconButton(
+                          onPressed: _showImageGenerator,
+                          icon: Icon(
+                            Icons.auto_awesome,
+                            color: Colors.purple,
+                            size: 20,
+                          ),
+                          padding: EdgeInsets.all(8),
+                          constraints: BoxConstraints(minWidth: 36, minHeight: 36),
+                          tooltip: 'Generate Image',
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      // Voice Mode
+                      VoiceModeButton(
+                        toggleVoiceMode: widget.toggleVoiceMode,
+                        isInVoiceMode: widget.isInVoiceMode,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              // Send and Mic Button
+              // Right side buttons
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   widget.isInVoiceMode
                       ? InputMicButton(
