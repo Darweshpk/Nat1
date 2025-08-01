@@ -53,6 +53,9 @@ class _EnhancedHomeAppbarState extends State<EnhancedHomeAppbar> {
       builder: (context) => ImageGenerationDialog(),
     );
   }
+
+  void _showAPIKeysManager() {
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => APIKeysManager(
