@@ -145,6 +145,23 @@ class _EnhancedHomeAppbarState extends State<EnhancedHomeAppbar> {
       title: _buildProviderButton(),
       centerTitle: true,
       actions: [
+        // Image Generation
+        IconButton(
+          onPressed: _showImageGenerator,
+          icon: Container(
+            padding: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.purple.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Icons.image,
+              color: Colors.purple,
+              size: 20,
+            ),
+          ),
+          tooltip: 'Generate Images',
+        ),
         // API Keys Manager
         IconButton(
           onPressed: _showAPIKeysManager,
