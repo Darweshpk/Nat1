@@ -1,5 +1,6 @@
 // dart
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:nativechat/components/chat_feed/ai_response.dart';
 import 'package:nativechat/components/chat_feed/attached_file_container.dart';
 import 'package:nativechat/components/chat_feed/chat_image_container.dart';
